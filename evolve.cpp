@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <fftw3.h>
 
 using std::vector;
 
