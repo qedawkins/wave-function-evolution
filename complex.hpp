@@ -18,6 +18,9 @@ public:
 
 	void print() const;
 
+	__float128 magsq() const;
+	__float128 mag() const;
+
 	void operator=  (const Complex&);
 	void operator+= (const Complex&);
 	void operator-= (const Complex&);
@@ -35,6 +38,7 @@ public:
 	friend Complex operator- (const Complex&, const Complex&);
 	friend Complex operator* (const Complex&, const Complex&);
 	friend Complex operator/ (const Complex&, const Complex&);
+	friend Complex operator^ (const Complex&, const Complex&);
 
 	template <typename T>
 	friend Complex operator+ (const T&, const Complex&);
@@ -44,12 +48,12 @@ public:
 	friend Complex operator* (const T&, const Complex&);
 	template <typename T>
 	friend Complex operator/ (const T&, const Complex&);
+	template <typename T>
+	friend Complex operator^ (const T&, const Complex&);
 
 	/* To implement:
-	 *  - Multiplication (both scalar and of complex numbers)
-	 *  - Division
 	 *	- Exponentiation
-	 *	- Conjugation
+	 *	- Conjugation, Magnitude
 	 *	- Other operations that may use
 	 *	  implemented operations but should be
 	 *	  written by themselves to reduce

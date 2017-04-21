@@ -1,7 +1,9 @@
 #include "complex.hpp"
+#include <quadmath.h>
 #include <cstdio>
+#include <cmath>
 
-int main(int argc, char** argv)
+int old_complex(int argc, char** argv)
 {
 
 	printf("Testing complex number printing...\n");
@@ -42,7 +44,24 @@ int main(int argc, char** argv)
 	printf(">>> Should read -1: ");
 	(I*I).print();
 
+	printf("Testing Euler's equation...\n");
+	printf(">>> Should read -1: ");
+	(Complex(M_E)^(I * M_PI) + 1).print();
+
 
 	return 0;
+
+}
+
+int main(int argc, char** argv)
+{
+
+	__complex128 a = 0;
+	__real__ a = M_E;
+	__complex128 b = 0;
+	__imag__ b = 1;
+	__complex128 c = cpowq(a, b * M_PI);
+
+	Complex(__real__ c, __imag__ c).print();
 
 }
