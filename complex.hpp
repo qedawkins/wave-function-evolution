@@ -9,12 +9,18 @@
 typedef long __complex__ double _complex;
 typedef long double _float;
 
+#define re(Z) creal(Z)
+#define im(Z) cimag(Z)
+
 #else
 
 #include <quadmath.h>
 
 typedef __complex128 _complex;
 typedef __float128 _float;
+
+#define re(Z) __real__ Z
+#define im(Z) __imag__ Z
 
 #endif
 
@@ -27,8 +33,6 @@ class Complex
 
 public:
 	_complex raw;
-	_float real();
-	_float im();
 
 	Complex();
 	Complex(_float const&);

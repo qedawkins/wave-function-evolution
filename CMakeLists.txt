@@ -13,8 +13,8 @@ include(CheckIncludeFiles)
 #  FFTW_FOUND       - True if FFTW found.
 
 if (FFTW_INCLUDES)
-  # Already in cache, be silent
-  set (FFTW_FIND_QUIETLY TRUE)
+	# Already in cache, be silent
+	set (FFTW_FIND_QUIETLY TRUE)
 endif (FFTW_INCLUDES)
 
 find_path (FFTW_INCLUDES fftw3.h)

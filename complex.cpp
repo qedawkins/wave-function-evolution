@@ -3,8 +3,6 @@
 
 #define PRINT_BUFFER_SIZE 128
 
-#define re(Z) __real__ Z
-#define im(Z) __imag__ Z
 
 Complex::Complex()
 {
@@ -45,7 +43,7 @@ void Complex::print() const
 {
 #ifndef USING_QUADMATH
 
-	printf("Printing complex numbers has not been implemented for all systems.\n");
+	printf("%f + i%f\n", re(raw), im(raw));
 
 #else
 
