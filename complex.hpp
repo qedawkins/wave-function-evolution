@@ -18,7 +18,7 @@ public:
 
 	void print() const;
 
-	Complex operator=  (const Complex&);
+	void operator=  (const Complex&);
 	void operator+= (const Complex&);
 	void operator-= (const Complex&);
 	void operator*= (const Complex&);
@@ -49,3 +49,5 @@ public:
 	 */
 
 };
+
+const Complex I = Complex(0, 1);

@@ -22,6 +22,9 @@ int main(int argc, char** argv)
 	Complex ca2(c, d);
 	Complex ca3;
 
+	ca1.print();
+	ca2.print();
+	printf(">>> Summed together: ");
 	ca3 = ca1+ca2;
 	ca3.print();
 	ca3 += ca2;
@@ -29,9 +32,12 @@ int main(int argc, char** argv)
 	ca3 -= (ca1 + ca2 * 2);
 	ca3.print();
 
+	printf("Testing use of I...\n");
+	I.print();
+
 	printf("Done\n");
 
 
-    return 0;
+	return 0;
 
 }

@@ -33,9 +33,10 @@ void Complex::print() const
 
 }
 
-Complex Complex::operator=(Complex const& other)
+void Complex::operator=(Complex const& other)
 {
-	return Complex(other.real, other.im);
+	this->real = other.real;
+	this->im = other.im;
 }
 
 void Complex::operator+=(Complex const& other)
