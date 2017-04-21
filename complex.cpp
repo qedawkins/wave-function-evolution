@@ -14,20 +14,54 @@ Complex::Complex(_float const& r)
 }
 Complex::Complex(_float const& r, _float const& i)
 {
-	re(raw) = r;
-	im(raw) = i;
+	this->re(r);
+	this->im(i);
 }
 Complex::Complex(_complex const& z)
 {
 	raw = z;
 }
 
+_float Complex::re() const
+{
+#ifndef USING_QUADMATH
+	return creall(raw);
+#else
+	return __real__ raw;
+#endif
+}
+void Complex::re(_float const& r)
+{
+#ifndef USING_QUADMATH
+	raw = r + cimagl(raw) * I;
+#else
+	__real__ raw = r;
+#endif
+}
+
+_float Complex::im() const
+{
+#ifndef USING_QUADMATH
+	return cimagl(raw);
+#else
+	return __imag__ raw;
+#endif
+}
+void Complex::im(_float const& r)
+{
+#ifndef USING_QUADMATH
+	raw = creall(raw) + r * I;
+#else
+	__imag__ raw = r;
+#endif
+}
+
 _float Complex::magsq() const
 {
 #ifndef USING_QUADMATH
-	return pow(re(raw), 2.0) + pow(im(raw), 2.0);
+	return pow(Re(raw), 2.0) + pow(Im(raw), 2.0);
 #else
-	return powq(re(raw), 2.0) + powq(im(raw), 2.0);
+	return powq(Re(raw), 2.0) + powq(Im(raw), 2.0);
 #endif
 }
 _float Complex::mag() const
@@ -43,7 +77,7 @@ void Complex::print() const
 {
 #ifndef USING_QUADMATH
 
-	printf("%f + i%f\n", re(raw), im(raw));
+	printf("%Lf + %Lfi\n", Re(raw), Im(raw));
 
 #else
 
@@ -51,8 +85,8 @@ void Complex::print() const
 
 	char real_buf[PRINT_BUFFER_SIZE];
 	char im_buf[PRINT_BUFFER_SIZE];
-	quadmath_snprintf(real_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, re(raw));
-	quadmath_snprintf(im_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, im(raw));
+	quadmath_snprintf(real_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, Re(raw));
+	quadmath_snprintf(im_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, Im(raw));
 	printf("%s + %si\n", real_buf, im_buf);
 
 #endif

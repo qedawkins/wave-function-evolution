@@ -9,8 +9,8 @@
 typedef long __complex__ double _complex;
 typedef long double _float;
 
-#define re(Z) creal(Z)
-#define im(Z) cimag(Z)
+#define Re(Z) creall(Z)
+#define Im(Z) cimagl(Z)
 
 #else
 
@@ -19,8 +19,8 @@ typedef long double _float;
 typedef __complex128 _complex;
 typedef __float128 _float;
 
-#define re(Z) __real__ Z
-#define im(Z) __imag__ Z
+#define Re(Z) __real__ Z
+#define Im(Z) __imag__ Z
 
 #endif
 
@@ -43,6 +43,12 @@ public:
 
 	_float magsq() const;
 	_float mag() const;
+
+	/* Component assignments */
+	_float re() const;
+	void re(_float const&);
+	_float im() const;
+	void im(_float const&);
 
 	void operator=  (const Complex&);
 	void operator+= (const Complex&);
