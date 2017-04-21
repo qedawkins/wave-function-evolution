@@ -1,6 +1,7 @@
 #include "complex.hpp"
 #include <quadmath.h>
 #include <cstdio>
+#include <type_traits>
 
 #define PRINT_BUFFER_SIZE 128
 
@@ -50,7 +51,7 @@ void Complex::operator-=(Complex const& other)
 	this->real -= other.real;
 	this->im -= other.im;
 }
-
+/*
 Complex Complex::operator+(Complex const& other)
 {
 	return Complex(this->real + other.real, this->im + other.im);
@@ -63,7 +64,7 @@ Complex Complex::operator-(Complex const& other)
 
 Complex Complex::operator*(Complex const& other)
 {
-	return Complex(this->real * other.real - this->im * other.im, 
+	return Complex(this->real * other.real - this->im * other.im,
 		this->real * other.im + this->im * other.real);
 }
 
@@ -72,23 +73,49 @@ Complex Complex::operator/(Complex const& other)
 	return Complex((this->real * other.real + this->im * other.im)/(other.real*other.real + other.im*other.im),
 		(this->im*other.real - this->real*other.im)/(other.real*other.real + other.im*other.im));
 }
+*/
+/** Arithmetic for bulit-in types **/
 template <typename T>
-Complex operator+ (const T& s, const Complex& c)
+static typename std::enable_if<std::is_scalar<T>::value, int>::type
+operator+ (const T& s, const Complex& c)
 {
 	return Complex(c.real + s, c.im + s);
 }
 template <typename T>
-Complex operator- (const T& s, const Complex& c)
+static typename std::enable_if<std::is_scalar<T>::value, int>::type
+operator- (const T& s, const Complex& c)
 {
 	return Complex(c.real - s, c.im - s);
 }
 template <typename T>
-Complex operator* (const T& s, const Complex& c)
+static typename std::enable_if<std::is_scalar<T>::value, int>::type
+operator* (const T& s, const Complex& c)
 {
 	return Complex(c.real*s,c.im*s);
 }
 template <typename T>
-Complex operator/ (const T& s, const Complex& c)
+static typename std::enable_if<std::is_scalar<T>::value, int>::type
+operator/ (const T& s, const Complex& c)
 {
 	return Complex(c.real/s,c.im/s);
+}
+
+/** Arithmetic for Complex type **/
+Complex operator+ (const Complex& a, const Complex& b)
+{
+	return Complex(a.real + b.real, a.im + b.im);
+}
+Complex operator- (const Complex& a, const Complex& b)
+{
+	return Complex(a.real - b.real, a.im - b.im);
+}
+Complex operator* (const Complex& a, const Complex& b)
+{
+	return Complex(a.real * b.real - a.im * b.im,
+		a.real * b.im + a.im * b.real);
+}
+Complex operator/ (const Complex& a, const Complex& b)
+{
+	return Complex((a.real * b.real + a.im * b.im)/(b.real*b.real + b.im*b.im),
+		(a.im*b.real - a.real*b.im)/(b.real*b.real + b.im*b.im));
 }

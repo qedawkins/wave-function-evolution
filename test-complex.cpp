@@ -30,12 +30,17 @@ int main(int argc, char** argv)
 	ca3 += ca2;
 	ca3.print();
 	ca3 -= (ca1 + ca2 * 2);
+	printf(">>> Should read 0: ");
 	ca3.print();
 
 	printf("Testing use of I...\n");
 	I.print();
 
 	printf("Done\n");
+
+	printf("Testing complex multiplication...\n");
+	printf(">>> Should read -1: ");
+	(I*I).print();
 
 
 	return 0;
