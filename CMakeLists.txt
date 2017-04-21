@@ -28,7 +28,10 @@ mark_as_advanced (FFTW_LIBRARIES FFTW_INCLUDES)
 ########### END FFTW
 
 add_library(complex STATIC complex.cpp)
-TARGET_LINK_LIBRARIES(complex quadmath)
+target_link_libraries(complex quadmath)
+
+add_executable(test-complex test-complex.cpp)
+target_link_libraries(test-complex -lm complex)
 
 add_executable(evolve evolve.cpp)
 target_link_libraries(evolve -lm ${FFTW_LIBRARIES} complex)
