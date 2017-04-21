@@ -1,3 +1,6 @@
+#ifndef COMPLEX_WRAPPER_H
+#define COMPLEX_WRAPPER_H
+
 #ifndef USING_QUADMATH
 
 #include <cmath>
@@ -67,3 +70,5 @@ public:
 };
 
 const Complex Complex_I = Complex(0, 1);
+
+#endif // COMPLEX_WRAPPER_H
