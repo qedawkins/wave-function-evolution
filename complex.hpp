@@ -1,25 +1,41 @@
+#ifndef USING_QUADMATH
+
+#include <cmath>
+#include <complex.h>
+
+typedef long __complex__ double _complex;
+typedef long double _float;
+
+#else
+
+#include <quadmath.h>
+
+typedef __complex128 _complex;
+typedef __float128 _float;
+
+#endif
+
 class Complex
 {
 
 	/*
-	 *
-	 * Class to implement complex number arithmetic
-	 * with 128 bits of precision
-	 *
+	 * Class to abstract complex arithmetic
 	 */
 
 public:
-	__float128 real;
-	__float128 im;
+	_complex raw;
+	_float real();
+	_float im();
 
 	Complex();
-	Complex(__float128 const&);
-	Complex(__float128 const&, __float128 const&);
+	Complex(_float const&);
+	Complex(_float const&, _float const&);
+	Complex(_complex const&);
 
 	void print() const;
 
-	__float128 magsq() const;
-	__float128 mag() const;
+	_float magsq() const;
+	_float mag() const;
 
 	void operator=  (const Complex&);
 	void operator+= (const Complex&);
@@ -62,4 +78,28 @@ public:
 
 };
 
-const Complex I = Complex(0, 1);
+const Complex Complex_I = Complex(0, 1);
+
+template <typename T>
+struct isComplex {
+	bool value = false;
+};
+
+template <typename T>
+struct isPrimitiveComplex {
+	bool value = false;
+};
+
+template <>
+struct isComplex<_complex> {
+	bool value = true;
+};
+template <>
+struct isComplex<Complex> {
+	bool value = true;
+};
+
+template <>
+struct isPrimitiveComplex<_complex> {
+	bool value = true;
+};
