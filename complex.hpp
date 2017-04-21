@@ -42,13 +42,7 @@ public:
 	void operator-= (const Complex&);
 	void operator*= (const Complex&);
 	void operator/= (const Complex&);
-
-	/*
-	Complex operator+ (const Complex&);
-	Complex operator- (const Complex&);
-	Complex operator* (const Complex&);
-	Complex operator/ (const Complex&);
-	*/
+	void operator^= (const Complex&);
 
 	friend Complex operator+ (const Complex&, const Complex&);
 	friend Complex operator- (const Complex&, const Complex&);

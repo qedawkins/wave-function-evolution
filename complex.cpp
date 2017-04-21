@@ -1,6 +1,5 @@
 #include "complex.hpp"
 #include <cstdio>
-#include <type_traits>
 
 #define PRINT_BUFFER_SIZE 128
 
@@ -27,25 +26,28 @@ Complex::Complex(_complex const& z)
 
 _float Complex::magsq() const
 {
-#ifdef USING_QUADMATH
-	return powq(re(raw), 2.0) + powq(im(raw), 2.0);
-#else
+#ifndef USING_QUADMATH
 	return pow(re(raw), 2.0) + pow(im(raw), 2.0);
+#else
+	return powq(re(raw), 2.0) + powq(im(raw), 2.0);
 #endif
 }
 _float Complex::mag() const
 {
-#ifdef USING_QUADMATH
-	return sqrtq(this->magsq());
-#else
+#ifndef USING_QUADMATH
 	return sqrt(this->magsq());
+#else
+	return sqrtq(this->magsq());
 #endif
 }
 
 void Complex::print() const
 {
+#ifndef USING_QUADMATH
 
-#ifdef USING_QUADMATH
+	printf("Printing complex numbers has not been implemented for all systems.\n");
+
+#else
 
 	int width = 20;
 
@@ -54,10 +56,6 @@ void Complex::print() const
 	quadmath_snprintf(real_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, re(raw));
 	quadmath_snprintf(im_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, im(raw));
 	printf("%s + %si\n", real_buf, im_buf);
-
-#else
-
-	printf("Printing complex numbers has not been implemented for all systems.\n");
 
 #endif
 
@@ -77,29 +75,23 @@ void Complex::operator-=(Complex const& other)
 {
 	this->raw -= other.raw;
 }
-/*
-Complex Complex::operator+(Complex const& other)
+void Complex::operator*=(Complex const& other)
 {
-	return Complex(this->real + other.real, this->im + other.im);
+	this->raw *= other.raw;
+}
+void Complex::operator/=(Complex const& other)
+{
+	this->raw /= other.raw;
+}
+void Complex::operator^=(Complex const& other)
+{
+#ifndef USING_QUADMATH
+	this->raw = cpow(this->raw, other.raw);
+#else
+	this->raw = cpowq(this->raw, other.raw);
+#endif
 }
 
-Complex Complex::operator-(Complex const& other)
-{
-	return Complex(this->real - other.real, this->im - other.im);
-}
-
-Complex Complex::operator*(Complex const& other)
-{
-	return Complex(this->real * other.real - this->im * other.im,
-		this->real * other.im + this->im * other.real);
-}
-
-Complex Complex::operator/(Complex const& other)
-{
-	return Complex((this->real * other.real + this->im * other.im)/(other.real*other.real + other.im*other.im),
-		(this->im*other.real - this->real*other.im)/(other.real*other.real + other.im*other.im));
-}
-*/
 /** Arithmetic for bulit-in types **/
 Complex operator+ (const _complex& s, const Complex& c)
 {
