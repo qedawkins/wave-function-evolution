@@ -2,7 +2,7 @@
 #include "quadmath.h"
 #include <cstdio>
 
-#define PRINT_BUFFER_SIZE 512
+#define PRINT_BUFFER_SIZE 128
 
 Complex::Complex()
 {
@@ -25,10 +25,10 @@ void Complex::print() const
 
 	int width = 20;
 
-	char real_buf[128];
-	char im_buf[128];
-	quadmath_snprintf(real_buf, 128, "%+-#*.20Qe", width, real);
-	quadmath_snprintf(im_buf, 128, "%+-#*.20Qe", width, im);
+	char real_buf[PRINT_BUFFER_SIZE];
+	char im_buf[PRINT_BUFFER_SIZE];
+	quadmath_snprintf(real_buf, PRINT_BUFFER_SIZE, "%+-#*.20Qe", width, real);
+	quadmath_snprintf(im_buf, PRINT_BUFFER_SIZE, "%+-#*.20Qe", width, im);
 	printf("%s + %si\n", real_buf, im_buf);
 
 }
