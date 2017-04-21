@@ -9,6 +9,11 @@ Complex::Complex()
 	real = 0;
 	im = 0;
 }
+Complex::Complex(__float128 const& r)
+{
+	real = r;
+	im = 0;
+}
 Complex::Complex(__float128 const& r, __float128 const& i)
 {
 	real = r;
@@ -32,12 +37,25 @@ Complex Complex::operator=(Complex const& other)
 {
 	return Complex(other.real, other.im);
 }
-Complex Complex::operator+(Complex const& other)
-{
-	return Complex(this->real + other.real, this->im + other.im);
-}
+
 void Complex::operator+=(Complex const& other)
 {
 	this->real += other.real;
 	this->im += other.im;
+}
+
+void Complex::operator-=(Complex const& other)
+{
+	this->real -= other.real;
+	this->im -= other.im;
+}
+
+Complex Complex::operator+(Complex const& other)
+{
+	return Complex(this->real + other.real, this->im + other.im);
+}
+
+Complex Complex::operator-(Complex const& other)
+{
+	return Complex(this->real - other.real, this->im - other.im);
 }
