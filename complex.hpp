@@ -1,65 +1,28 @@
-class Complex
-{
+#ifndef COMPLEX_H
+#define COMPLEX_H
 
-	/*
-	 *
-	 * Class to implement complex number arithmetic
-	 * with 128 bits of precision
-	 *
-	 */
+#ifdef IS_CLANG_BUILD
 
-public:
-	__float128 real;
-	__float128 im;
+#include <cmath>
 
-	Complex();
-	Complex(__float128 const&);
-	Complex(__float128 const&, __float128 const&);
+typedef __complex64 Complex;
+typedef __float64 Float;
 
-	void print() const;
+Complex cpowq(Complex, Complex);
 
-	__float128 magsq() const;
-	__float128 mag() const;
+#else
 
-	void operator=  (const Complex&);
-	void operator+= (const Complex&);
-	void operator-= (const Complex&);
-	void operator*= (const Complex&);
-	void operator/= (const Complex&);
+#include <quadmath.h>
 
-	/*
-	Complex operator+ (const Complex&);
-	Complex operator- (const Complex&);
-	Complex operator* (const Complex&);
-	Complex operator/ (const Complex&);
-	*/
+typedef __complex128 Complex;
+typedef __float128 Float;
+//typedef __complex64 Complex;
+//typedef long double complex Complex;
 
-	friend Complex operator+ (const Complex&, const Complex&);
-	friend Complex operator- (const Complex&, const Complex&);
-	friend Complex operator* (const Complex&, const Complex&);
-	friend Complex operator/ (const Complex&, const Complex&);
-	friend Complex operator^ (const Complex&, const Complex&);
+#endif
 
-	template <typename T>
-	friend Complex operator+ (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator- (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator* (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator/ (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator^ (const T&, const Complex&);
+void cprint(Complex const&);
 
-	/* To implement:
-	 *	- Exponentiation
-	 *	- Conjugation, Magnitude
-	 *	- Other operations that may use
-	 *	  implemented operations but should be
-	 *	  written by themselves to reduce
-	 *	  numerical instability
-	 */
+Complex genComplex(Float const&, Float const&);
 
-};
-
-const Complex I = Complex(0, 1);
+#endif // COMPLEX_H
