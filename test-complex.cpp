@@ -44,7 +44,7 @@ int old_complex(int argc, char** argv)
 	(Complex_I*Complex_I).print();
 
 	printf("Testing Euler's equation...\n");
-	printf(">>> Should read -1: ");
+	printf(">>> Should read 0: ");
 	((Complex(M_E)^(Complex_I * M_PI)) + 1).print();
 
 
@@ -55,12 +55,6 @@ int old_complex(int argc, char** argv)
 int main(int argc, char** argv)
 {
 
-	__complex128 a = 0;
-	__real__ a = M_E;
-	__complex128 b = 0;
-	__imag__ b = 1;
-	__complex128 c = cpowq(a, b * M_PI);
-
-	Complex(__real__ c, __imag__ c).print();
+	old_complex(argc, argv);
 
 }

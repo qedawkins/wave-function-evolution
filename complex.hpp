@@ -63,7 +63,6 @@ public:
 	friend Complex operator^ (const _complex&, const Complex&);
 
 	/* To implement:
-	 *	- Exponentiation
 	 *	- Conjugation, Magnitude
 	 *	- Other operations that may use
 	 *	  implemented operations but should be
