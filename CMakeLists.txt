@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Ofast")
+
+########### FFTW
 # - Find FFTW
 # Find the native FFTW includes and library
 #
@@ -22,10 +25,12 @@ include (FindPackageHandleStandardArgs)
 find_package_handle_standard_args (FFTW DEFAULT_MSG FFTW_LIBRARIES FFTW_INCLUDES)
 
 mark_as_advanced (FFTW_LIBRARIES FFTW_INCLUDES)
+########### END FFTW
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Ofast")
+add_library(complex STATIC complex.cpp)
+TARGET_LINK_LIBRARIES(complex quadmath)
 
 add_executable(evolve evolve.cpp)
-target_link_libraries(evolve -lm ${FFTW_LIBRARIES})
+target_link_libraries(evolve -lm ${FFTW_LIBRARIES} complex)
 
 #install(TARGETS evolve DESTINATION bin)
