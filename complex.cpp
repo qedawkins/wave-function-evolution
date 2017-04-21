@@ -1,5 +1,4 @@
 #include "complex.hpp"
-#include <quadmath.h>
 #include <cstdio>
 #include <type_traits>
 
@@ -52,8 +51,8 @@ void Complex::print() const
 
 	char real_buf[PRINT_BUFFER_SIZE];
 	char im_buf[PRINT_BUFFER_SIZE];
-	quadmath_snprintf(real_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, re(z));
-	quadmath_snprintf(im_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, im(z));
+	quadmath_snprintf(real_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, re(raw));
+	quadmath_snprintf(im_buf, PRINT_BUFFER_SIZE, "%#*.20Qe", width, im(raw));
 	printf("%s + %si\n", real_buf, im_buf);
 
 #else
@@ -102,58 +101,44 @@ Complex Complex::operator/(Complex const& other)
 }
 */
 /** Arithmetic for bulit-in types **/
-template <typename T>
-static typename std::enable_if<isComplex<T>::value, int>::type
-operator+ (const T& s, const Complex& c)
+Complex operator+ (const _complex& s, const Complex& c)
 {
 	return Complex(c.raw + s);
 }
-template <typename T>
-static typename std::enable_if<isComplex<T>::value, int>::type
-operator- (const T& s, const Complex& c)
+Complex operator- (const _complex& s, const Complex& c)
 {
 	return Complex(c.raw - s);
 }
-template <typename T>
-static typename std::enable_if<isComplex<T>::value, int>::type
-operator* (const T& s, const Complex& c)
+Complex operator* (const _complex& s, const Complex& c)
 {
 	return Complex(c.raw * s);
 }
-template <typename T>
-static typename std::enable_if<isComplex<T>::value, int>::type
-operator/ (const T& s, const Complex& c)
+Complex operator/ (const _complex& s, const Complex& c)
 {
 	return Complex(c.raw / s);
 }
-template <typename T>
-static typename std::enable_if<isPrimitiveComplex<T>::value, int>::type
-operator^ (const T& s, const Complex& c)
+Complex operator^ (const _complex& s, const Complex& c)
 {
 	return c^Complex(s);
 }
 
 /** Arithmetic for Complex type **/
-/*
 Complex operator+ (const Complex& a, const Complex& b)
 {
-	return Complex(a.real + b.real, a.im + b.im);
+	return Complex(a.raw + b.raw);
 }
 Complex operator- (const Complex& a, const Complex& b)
 {
-	return Complex(a.real - b.real, a.im - b.im);
+	return Complex(a.raw - b.raw);
 }
 Complex operator* (const Complex& a, const Complex& b)
 {
-	return Complex(a.real * b.real - a.im * b.im,
-		a.real * b.im + a.im * b.real);
+	return Complex(a.raw * b.raw);
 }
 Complex operator/ (const Complex& a, const Complex& b)
 {
-	return Complex((a.real * b.real + a.im * b.im)/(b.real*b.real + b.im*b.im),
-		(a.im*b.real - a.real*b.im)/(b.real*b.real + b.im*b.im));
+	return Complex(a.raw / b.raw);
 }
-*/
 Complex operator^ (const Complex& a, const Complex& b)
 {
 #ifndef USING_QUADMATH

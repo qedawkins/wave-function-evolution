@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Ofast")
 
+include(CheckIncludeFiles)
+
 ########### FFTW
 # - Find FFTW
 # Find the native FFTW includes and library
@@ -25,7 +27,17 @@ include (FindPackageHandleStandardArgs)
 find_package_handle_standard_args (FFTW DEFAULT_MSG FFTW_LIBRARIES FFTW_INCLUDES)
 
 mark_as_advanced (FFTW_LIBRARIES FFTW_INCLUDES)
-########### END FFTW
+########### End FFTW
+
+########### libquadmath
+
+check_include_files(quadmath.h HAS_QUADMATH_H)
+if (HAS_QUADMATH_H)
+	add_definitions(-DUSING_QUADMATH)
+endif (HAS_QUADMATH_H)
+
+########## End libquadmath
+
 
 add_library(complex STATIC complex.cpp)
 target_link_libraries(complex quadmath)

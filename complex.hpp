@@ -56,16 +56,11 @@ public:
 	friend Complex operator/ (const Complex&, const Complex&);
 	friend Complex operator^ (const Complex&, const Complex&);
 
-	template <typename T>
-	friend Complex operator+ (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator- (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator* (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator/ (const T&, const Complex&);
-	template <typename T>
-	friend Complex operator^ (const T&, const Complex&);
+	friend Complex operator+ (const _complex&, const Complex&);
+	friend Complex operator- (const _complex&, const Complex&);
+	friend Complex operator* (const _complex&, const Complex&);
+	friend Complex operator/ (const _complex&, const Complex&);
+	friend Complex operator^ (const _complex&, const Complex&);
 
 	/* To implement:
 	 *	- Exponentiation
@@ -79,27 +74,3 @@ public:
 };
 
 const Complex Complex_I = Complex(0, 1);
-
-template <typename T>
-struct isComplex {
-	bool value = false;
-};
-
-template <typename T>
-struct isPrimitiveComplex {
-	bool value = false;
-};
-
-template <>
-struct isComplex<_complex> {
-	bool value = true;
-};
-template <>
-struct isComplex<Complex> {
-	bool value = true;
-};
-
-template <>
-struct isPrimitiveComplex<_complex> {
-	bool value = true;
-};

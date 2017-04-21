@@ -1,5 +1,4 @@
 #include "complex.hpp"
-#include <quadmath.h>
 #include <cstdio>
 #include <cmath>
 
@@ -36,17 +35,17 @@ int old_complex(int argc, char** argv)
 	ca3.print();
 
 	printf("Testing use of I...\n");
-	I.print();
+	Complex_I.print();
 
 	printf("Done\n");
 
 	printf("Testing complex multiplication...\n");
 	printf(">>> Should read -1: ");
-	(I*I).print();
+	(Complex_I*Complex_I).print();
 
 	printf("Testing Euler's equation...\n");
 	printf(">>> Should read -1: ");
-	(Complex(M_E)^(I * M_PI) + 1).print();
+	((Complex(M_E)^(Complex_I * M_PI)) + 1).print();
 
 
 	return 0;
