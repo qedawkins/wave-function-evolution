@@ -1,5 +1,5 @@
 #include "complex.hpp"
-#include "quadmath.h"
+#include <quadmath.h>
 #include <cstdio>
 
 #define PRINT_BUFFER_SIZE 128
