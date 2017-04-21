@@ -59,3 +59,35 @@ Complex Complex::operator-(Complex const& other)
 {
 	return Complex(this->real - other.real, this->im - other.im);
 }
+
+Complex Complex::operator*(Complex const& other)
+{
+	return Complex(this->real * other.real - this->im * other.im, 
+		this->real * other.im + this->im * other.real);
+}
+
+Complex Complex::operator/(Complex const& other)
+{
+	return Complex((this->real * other.real + this->im * other.im)/(other.real*other.real + other.im*other.im),
+		(this->im*other.real - this->real*other.im)/(other.real*other.real + other.im*other.im));
+}
+template <typename T>
+Complex operator+ (const T& s, const Complex& c)
+{
+	return Complex(c.real + s, c.im + s);
+}
+template <typename T>
+Complex operator- (const T& s, const Complex& c)
+{
+	return Complex(c.real - s, c.im - s);
+}
+template <typename T>
+Complex operator* (const T& s, const Complex& c)
+{
+	return Complex(c.real*s,c.im*s);
+}
+template <typename T>
+Complex operator/ (const T& s, const Complex& c)
+{
+	return Complex(c.real/s,c.im/s);
+}

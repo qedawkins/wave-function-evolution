@@ -28,6 +28,15 @@ public:
 	Complex operator* (const Complex&);
 	Complex operator/ (const Complex&);
 
+	template <typename T>
+	friend Complex operator+ (const T&, const Complex&);
+	template <typename T>
+	friend Complex operator- (const T&, const Complex&);
+	template <typename T>
+	friend Complex operator* (const T&, const Complex&);
+	template <typename T>
+	friend Complex operator/ (const T&, const Complex&);
+
 	/* To implement:
 	 *  - Multiplication (both scalar and of complex numbers)
 	 *  - Division

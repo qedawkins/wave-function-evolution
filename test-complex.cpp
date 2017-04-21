@@ -24,7 +24,9 @@ int main(int argc, char** argv)
 
 	ca3 = ca1+ca2;
 	ca3.print();
-	ca3+= ca2;
+	ca3 += ca2;
+	ca3.print();
+	ca3 -= (ca1 + ca2 * 2);
 	ca3.print();
 
 	printf("Done\n");
