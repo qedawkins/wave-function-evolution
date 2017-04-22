@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1.0)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Ofast")
 
+set(NO_QUADMATH FALSE CACHE BOOL "Prevent usage of libquadmath")
+
 include(CheckIncludeFiles)
 
 ########### FFTW
@@ -31,10 +33,14 @@ mark_as_advanced (FFTW_LIBRARIES FFTW_INCLUDES)
 
 ########### libquadmath
 
-check_include_files(quadmath.h HAS_QUADMATH_H)
-if (HAS_QUADMATH_H)
-	add_definitions(-DUSING_QUADMATH)
-endif (HAS_QUADMATH_H)
+if(NOT NO_QUADMATH)
+
+	check_include_files(quadmath.h HAS_QUADMATH_H)
+	if (HAS_QUADMATH_H)
+		add_definitions(-DUSING_QUADMATH)
+	endif (HAS_QUADMATH_H)
+
+endif(NOT NO_QUADMATH)
 
 ########## End libquadmath
 
