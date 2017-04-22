@@ -3,7 +3,6 @@
 
 #ifndef USING_QUADMATH
 
-#include <cmath>
 #include <complex>
 
 typedef std::complex<long double> _complex;

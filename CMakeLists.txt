@@ -46,7 +46,9 @@ endif(NOT NO_QUADMATH)
 
 
 add_library(complex STATIC complex.cpp)
-target_link_libraries(complex quadmath)
+if(HAS_QUADMATH_H)
+	target_link_libraries(complex quadmath)
+endif(HAS_QUADMATH_H)
 
 add_executable(test-complex test-complex.cpp)
 target_link_libraries(test-complex -lm complex)
