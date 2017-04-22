@@ -4,13 +4,13 @@
 #ifndef USING_QUADMATH
 
 #include <cmath>
-#include <complex.h>
+#include <complex>
 
-typedef long __complex__ double _complex;
+typedef std::complex<long double> _complex;
 typedef long double _float;
 
-#define Re(Z) creall(Z)
-#define Im(Z) cimagl(Z)
+#define Re(Z) Z.real()
+#define Im(Z) Z.imag()
 
 #else
 

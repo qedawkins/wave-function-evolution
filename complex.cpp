@@ -25,7 +25,7 @@ Complex::Complex(_complex const& z)
 _float Complex::re() const
 {
 #ifndef USING_QUADMATH
-	return creall(raw);
+	return raw.real();
 #else
 	return __real__ raw;
 #endif
@@ -33,7 +33,7 @@ _float Complex::re() const
 void Complex::re(_float const& r)
 {
 #ifndef USING_QUADMATH
-	raw = r + cimagl(raw) * I;
+	raw.real(r);
 #else
 	__real__ raw = r;
 #endif
@@ -42,7 +42,7 @@ void Complex::re(_float const& r)
 _float Complex::im() const
 {
 #ifndef USING_QUADMATH
-	return cimagl(raw);
+	return raw.imag();
 #else
 	return __imag__ raw;
 #endif
@@ -50,7 +50,7 @@ _float Complex::im() const
 void Complex::im(_float const& r)
 {
 #ifndef USING_QUADMATH
-	raw = creall(raw) + r * I;
+	raw.imag(r);
 #else
 	__imag__ raw = r;
 #endif
@@ -75,9 +75,10 @@ _float Complex::mag() const
 
 void Complex::print() const
 {
+
 #ifndef USING_QUADMATH
 
-	printf("%Lf + %Lfi\n", Re(raw), Im(raw));
+	printf("%.20Le + %.20Lei\n", Re(raw), Im(raw));
 
 #else
 
@@ -118,7 +119,7 @@ void Complex::operator/=(Complex const& other)
 void Complex::operator^=(Complex const& other)
 {
 #ifndef USING_QUADMATH
-	this->raw = cpow(this->raw, other.raw);
+	this->raw = std::pow(this->raw, other.raw);
 #else
 	this->raw = cpowq(this->raw, other.raw);
 #endif
@@ -166,7 +167,7 @@ Complex operator/ (const Complex& a, const Complex& b)
 Complex operator^ (const Complex& a, const Complex& b)
 {
 #ifndef USING_QUADMATH
-	return Complex(cpow(a.raw, b.raw));
+	return Complex(std::pow(a.raw, b.raw));
 #else
 	return Complex(cpowq(a.raw, b.raw));
 #endif
