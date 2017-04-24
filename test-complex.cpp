@@ -14,6 +14,19 @@ int old_complex(int argc, char** argv)
 	co.print();
 	printf("Done\n");
 
+    printf("Testing conjugate operator...\n");
+
+    int r = 3;
+    int i = 4;
+    _complex cmp;
+    __real__ cmp = r;
+    __imag__ cmp = i;
+    printf("Should read: %d - %di\n", r , i);
+    Complex conj(r, i);
+    Complex oconj(~cmp);
+    oconj.print();
+    (~conj).print();
+    printf("Done");
 	printf("Testing complex number addition...\n");
 
 	int c = 720;

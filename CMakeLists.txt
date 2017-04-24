@@ -54,6 +54,6 @@ add_executable(test-complex test-complex.cpp)
 target_link_libraries(test-complex -lm complex)
 
 add_executable(evolve evolve.cpp)
-target_link_libraries(evolve -lm ${FFTW_LIBRARIES} complex)
-
+target_link_libraries(evolve -lm complex)
+#TODO add back ${FFTW_LIBRARIES} to linked libraries in evolve b/c it was not found over ssh
 #install(TARGETS evolve DESTINATION bin)
